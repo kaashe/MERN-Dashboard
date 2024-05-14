@@ -20,7 +20,7 @@ const Login = () => {
       });
 
       if (response.ok) {
-        const responseData = await response.json(); // Assuming server responds with JSON
+        const responseData = await response.json(); 
         setNotification({ message: 'Login successful!', type: 'success' });
         localStorage.setItem('token', responseData.token);
         setToken(responseData.token);

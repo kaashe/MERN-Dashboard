@@ -48,4 +48,13 @@ const login = async (req, resp) => {
     next(error);
   }
 };
-module.exports = { login, register };
+const user =async (req,resp)=>{
+try {
+  const userData = req.user;
+  console.log(userData,'user Data');
+  resp.status(200).json({msg:userData})
+} catch (error) {
+  console.log('error from user route',error);
+}
+}
+module.exports = { login, register,user };

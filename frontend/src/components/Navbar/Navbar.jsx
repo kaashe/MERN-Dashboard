@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 // import './Navbar.css'
 const Navbar = () => {
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem('token'));
     const logOutHandler = () => {
         localStorage.removeItem('token');
         setToken(null);
     }
     useEffect(() => {
-        setToken(localStorage.getItem('token'))
+      
     }, [token]);
     return (
         <>

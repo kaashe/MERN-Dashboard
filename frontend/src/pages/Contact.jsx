@@ -68,7 +68,7 @@ const Contact = () => {
       </div>
 
       <div className='w-full'>
-        <iframe src="https://www.google.com/maps/embed?..." className="w-full h-96" style={{ border: "0" }} allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?..." className="w-full h-96" style={{ border: "0" }} allowFullScreen="" loading="lazy"></iframe>
       </div>
     </div>
   );
