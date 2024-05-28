@@ -18,6 +18,12 @@ const Services = () => {
           :
           services?.response?.map(service => (
             <div key={service._id} className="p-4 w-full md:w-1/2 lg:w-1/3">
+                <div className="rounded overflow-hidden shadow-lg">
+                <img
+                  src={service?.imageUrl}
+                  className="w-full h-48 object-cover"
+                />
+              </div>
               <div className="border border-gray-200 p-6 rounded-lg shadow-lg">
                 <h2 className="text-xl font-semibold mb-2">{service.title}</h2>
                 <p className="mb-4">{service.description}</p>
