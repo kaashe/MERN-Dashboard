@@ -23,6 +23,19 @@ const getUserById = async (req, resp, next) => {
         next(error)
     }
 }
+const updateUser = async (req, resp, next) => {
+    try {
+        const id = req.params.id;
+        const payload  = req.body;
+        const user = await User.updateOne({_id:id}, { $set: payload });
+        if (!user || user?.length === 0) {
+            return resp.status(401).json({ message: "user not found!" })
+        }
+        resp.status(200).json(user)
+    } catch (error) {
+        next(error)
+    }
+}
 const deleteUser = async (req, resp, next) => {
     try {
         const id = req.params.id;
@@ -53,4 +66,4 @@ const deleteContact = async (req, resp, next) => {
         next(error)
     }
 }
-module.exports = { getAllUsers, getUserById, getAllContacts, deleteUser, deleteContact };
+module.exports = { getAllUsers, getUserById,updateUser, getAllContacts, deleteUser, deleteContact };

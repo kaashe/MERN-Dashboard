@@ -1,10 +1,11 @@
 const express = require('express');
-const { getAllUsers,getUserById, getAllContacts, deleteUser, deleteContact } = require('../controllers/admin-controller');
+const { getAllUsers,getUserById, getAllContacts, deleteUser, deleteContact, updateUser } = require('../controllers/admin-controller');
 const authMiddleware = require('../middlewares/auth-middleware');
 const adminMiddleware = require('../middlewares/admin-middleware');
 const router = express.Router();
 router.route("/users").get(authMiddleware, adminMiddleware, getAllUsers);
 router.route("/user/:id/edit").get(authMiddleware, adminMiddleware, getUserById);
+router.route("/user/:id/update").patch(authMiddleware, adminMiddleware, updateUser);
 router.route("/contacts").get(authMiddleware, getAllContacts);
 router.route("/users/delete/:id").delete(authMiddleware, adminMiddleware, deleteUser);
 router.route("/users/contact/:id").delete(authMiddleware, adminMiddleware, deleteContact);
