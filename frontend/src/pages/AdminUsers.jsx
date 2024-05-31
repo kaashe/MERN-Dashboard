@@ -19,7 +19,7 @@ const AdminUsers = () => {
   }, []);
   const deleteUser = async (id) => {
     try {
-      const resp = await fetch(`http://localhost:3000/api/admin/users/delete/${id}`, {
+      const resp = await fetch(`http://localhost:3000/api/admin/user/${id}delete`, {
         method: "DELETE",
         headers: {
           Authorization: localStorage.getItem('token')
@@ -37,42 +37,49 @@ const AdminUsers = () => {
     }
   }
   return (
-    <div className="overflow-x-auto ml-3">
-      <h1 className='text-4xl'>Admin Users</h1>
-      <table className="table m-4">
+    <div className="overflow-x-auto rounded-lg shadow-md mx-3">
+      <h1 className='text-2xl font-bold text-gray-800 p-4'>Admin Users</h1>
+      <table className="table-auto w-full">
         <thead>
-          <tr>
-            <th>Sr.No</th>
-            <th>Email</th>
-            <th>UserName</th>
-            <th>Phone</th>
-            <th>Edit</th>
-            <th>Delete</th>
+          <tr className="bg-gray-100 text-left text-gray-600">
+            <th className="p-2">Sr.No</th>
+            <th className="p-2">Email</th>
+            <th className="p-2">Username</th>
+            <th className="p-2">Phone</th>
+            <th className="p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {
-            adminUsers?.length === 0 ?
-              <p>No Data Found!</p>
-              :
-              adminUsers?.map((user, index) => (
-                <tr key={index} className='hover'>
-                  <td>{index + 1}</td>
-                  <td>{user?.email}</td>
-                  <td>{user?.username}</td>
-                  <td>{user?.phone}</td>
-                  <td>
-                    <Link
-                      to={`/admin/users/${user?._id}/edit`}
-                      className=' via-green-200 bg-blue-400 p-1 px-2 border-r-2'>Edit</Link>
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => deleteUser(user?._id)}
-                      className='text-red-500 bg-blue-400 p-1 border-r-2'>Delete</button>
-                  </td>
-                </tr>
-              ))}
+          {adminUsers?.length === 0 ? (
+            <tr className="text-center">
+              <td colSpan={6}>
+                <p className="text-gray-500 py-4">No Data Found!</p>
+              </td>
+            </tr>
+          ) : (
+            adminUsers?.map((user, index) => (
+              <tr key={index} className="border-b hover:bg-gray-100">
+                <td className="p-2">{index + 1}</td>
+                <td className="p-2">{user?.email}</td>
+                <td className="p-2">{user?.username}</td>
+                <td className="p-2">{user?.phone}</td>
+                <td className="p-2 flex justify-end space-x-2">
+                  <Link
+                    to={`/admin/user/${user?._id}/edit`}
+                    className="inline-block px-2 py-1 bg-green-500 text-white rounded hover:bg-green-700"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => deleteUser(user?._id)}
+                    className="inline-block px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

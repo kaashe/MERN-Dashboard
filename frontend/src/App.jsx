@@ -12,6 +12,7 @@ import AdminLayount from "./components/Layout/Admin-Layount";
 import AdminUsers from "./pages/AdminUsers";
 import AdminContacts from "./pages/AdminContacts";
 import EditUser from "./pages/EditUser";
+import EditContacts from "./pages/EditContacts";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,7 +31,8 @@ function App() {
         <Route path="/admin" element={<AdminLayount />}>
           <Route path="users" element={<AdminUsers />} />
           <Route path="contacts" element={<AdminContacts />} />
-          <Route path="users/:id/edit" element={<EditUser />} />
+          <Route path="user/:id/edit" element={<EditUser />} />
+          <Route path="contact/:id/edit" element={<EditContacts />} />
         </Route>
       </Routes>
     </BrowserRouter>
