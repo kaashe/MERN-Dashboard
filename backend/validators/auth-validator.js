@@ -15,6 +15,7 @@ const signUpSchema = z.object({
     password:z.string({required_error:"password is required"}).trim()
     .min(3,{message:"password:min 3 characters"})
     .max(6,{message:"password:max 6 characters"}),
+    isAdmin: z.boolean()
 })
 const signInSchema = z.object({
     email:z.string({required_error:"email is required"}).trim()
@@ -24,4 +25,4 @@ const signInSchema = z.object({
     .min(3,{message:"password:min 3 characters"})
     .max(6,{message:"password:max 6 characters"}),
 })
-module.exports = {signUpSchema,signInSchema};
+module.exports = {signUpSchema,signInSchema}; 

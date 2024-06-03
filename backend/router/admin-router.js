@@ -7,7 +7,7 @@ router.route("/users").get(authMiddleware, adminMiddleware, getAllUsers);
 router.route("/user/:id/edit").get(authMiddleware, adminMiddleware, getUserById);
 router.route("/user/:id/update").patch(authMiddleware, adminMiddleware, updateUser);
 router.route("/user/:id/delete").delete(authMiddleware, adminMiddleware, deleteUser);
-router.route("/contacts").get(authMiddleware, getAllContacts);
+router.route("/contacts").get(authMiddleware,adminMiddleware, getAllContacts);
 router.route("/contact/:id/edit").get(authMiddleware, adminMiddleware, getContactById);
 router.route("/contact/:id/update").patch(authMiddleware, adminMiddleware, updateContact);
 router.route("/contact/:id/delete").delete(authMiddleware, adminMiddleware, deleteContact);

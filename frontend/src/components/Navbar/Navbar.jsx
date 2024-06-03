@@ -10,7 +10,15 @@ const Navbar = () => {
         setToken(null);
     }
     useEffect(() => {
-
+      const handleStorageChange = () => {
+        setToken(localStorage.getItem('token'));
+      };
+  
+      window.addEventListener('storage', handleStorageChange);
+  
+      return () => {
+        window.removeEventListener('storage', handleStorageChange);
+      };
     }, [token]);
     return (
         <header className="header bg-gray-200 shadow-md px-4 py-6 flex justify-between items-center"> {/* Tailwind CSS classes */}
@@ -26,11 +34,7 @@ const Navbar = () => {
             <li><NavLink className="navLink hover:text-gray-700" to="/contact">Contact</NavLink></li>
             {!token && <li><NavLink className="navLink hover:text-gray-700" to="/sign-up">Sign Up</NavLink></li>}
             {!token && <li><NavLink className="navLink hover:text-gray-700" to="/sign-in">Sign In</NavLink></li>}
-            <li>
-              <button onClick={logOutHandler} type="submit" className="logout-button">
-                Log Out
-              </button>
-            </li>
+            {token&&<li><button onClick={logOutHandler} type="submit" className="logout-button">Log Out</button></li>}
           </ul>
         </nav>
       </header>

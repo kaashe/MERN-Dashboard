@@ -3,12 +3,12 @@ const bcrypt = require("bcryptjs");
 
 const register = async (req, resp,next) => {
   try {
-    const { username, email, phone, password } = req.body;
+    const { username, email, phone, password,isAdmin } = req.body;
     const userExist = await User.findOne({ email: email });
     if (userExist) {
       return resp.status(404).json({ message: "Email exist" });
     }
-    const createdUser = await User.create({ username, email, phone, password });
+    const createdUser = await User.create({ username, email, phone, password,isAdmin });
     resp
       .status(200)
       .json({

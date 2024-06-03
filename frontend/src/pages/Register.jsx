@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const Register = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } ,watch} = useForm({
+    defaultValues:{
+      isAdmin:false
+    }
+  });
   const [showLoading, SetShowLoading] = useState(false);
   const [notification, setNotification] = useState({ message: '', type: '' });
-
+                <input type="checkbox" id="isAdmin" className="toggle toggle-primary ml-2" />
   const onSubmit = async (data) => {
     console.log('Submitting form data:', data);
     SetShowLoading(true)
@@ -65,6 +69,12 @@ const Register = () => {
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
               <input type="tel" id="phone" {...register("phone", { required: true })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
               {errors.phone && <span className="text-red-500 text-xs">Phone is required</span>}
+            </div>
+            <div className="form-control w-52">
+              <label className="cursor-pointer label">
+                <span className="label-text">Admin</span>
+                <input type="checkbox" id="isAdmin" {...register("isAdmin", { required: false })}  className="toggle toggle-primary ml-2" />
+              </label>
             </div>
             <button disabled={showLoading} type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{showLoading ? 'Sign Up...' : 'Sign Up'}</button>
             {/* Notification message here */}

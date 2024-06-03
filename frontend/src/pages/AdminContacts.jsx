@@ -6,7 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AdminContacts = () => {
   const [adminContacts, setAdminContacts] = useState([]);
-  const navigate = useNavigate(); // for redirecting on errors
+  const [showError, setshowError] = useState();
+  const navigate = useNavigate(); 
 
   const getAllContacts = async () => {
     try {
@@ -16,27 +17,20 @@ const AdminContacts = () => {
           Authorization: localStorage.getItem('token')
         }
       });
-
+  
       if (!response.ok) {
-        // Handle non-2xx status codes (e.g., 401 for unauthorized)
-        if (response.status === 401) {
-          toast.error('You are not logged in. Please login to continue.', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: true,
-          });
-          navigate('/login'); // Redirect to login page on unauthorized access
-        } else {
-          // Handle other errors (e.g., server errors)
-          console.error('Error fetching data:', response.statusText);
+        if(response?.status===401){
+          throw new Error('Please Login');
+        }else if(response?.status===403){
+          throw new Error('You are not an Admin! ');
         }
-        return; // Exit the function if error occurs
       }
-
+  
       const data = await response.json();
       setAdminContacts(data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.log(error);
+      setshowError(error)
     }
   };
 
@@ -85,7 +79,7 @@ const AdminContacts = () => {
           {adminContacts?.length === 0 ? (
             <tr className="text-center">
               <td colSpan={6}>
-                <p className="text-gray-500 py-4">No Data Found!</p>
+              <p className="text-red-300 py-4">{showError!==''?showError?.toString():"No Data Found"}</p>
               </td>
             </tr>
           ) : (

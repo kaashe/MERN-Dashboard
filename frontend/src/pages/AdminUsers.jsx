@@ -3,17 +3,33 @@ import { Link } from 'react-router-dom';
 
 const AdminUsers = () => {
   const [adminUsers, setAdminUsers] = useState([]);
+  const [showError, setshowError] = useState();
   const getAllUsers = async () => {
-    await fetch('http://localhost:3000/api/admin/users', {
-      method: "GET",
-      headers: {
-        Authorization: localStorage.getItem('token')
+    try {
+      const response = await fetch('http://localhost:3000/api/admin/users', {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      });
+  
+      if (!response.ok) {
+        if(response?.status===401){
+          throw new Error('Please Login');
+        }else if(response?.status===403){
+          throw new Error('You are not an Admin! ');
+        } 
+        console.log(response?.message,'resssss');
       }
-    })
-      .then(response => response.json())
-      .then(data => setAdminUsers(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }
+  
+      const data = await response.json();
+      setAdminUsers(data);
+    } catch (error) {
+      console.log(error);
+      setshowError(error)
+    }
+  };
+  
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -53,7 +69,7 @@ const AdminUsers = () => {
           {adminUsers?.length === 0 ? (
             <tr className="text-center">
               <td colSpan={6}>
-                <p className="text-gray-500 py-4">No Data Found!</p>
+                <p className="text-red-300 py-4">{showError!==''?showError?.toString():"No Data Found"}</p>
               </td>
             </tr>
           ) : (

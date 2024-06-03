@@ -36,7 +36,7 @@ const EditUser = () => {
       } else {
         const errorData = await response.json();
         setNotification({ message: `Failed to Update: ${errorData.message}`, type: 'error' });
-        throw new Error(`${errorData.message}`);
+        throw new Error(`${errorData.message}`); 
         SetShowLoading(false)
       }
     } catch (error) {

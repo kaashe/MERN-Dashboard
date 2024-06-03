@@ -22,7 +22,7 @@ const Login = () => {
       });
 
       if (response.ok) {
-        const responseData = await response.json(); 
+        const responseData = await response.json();
         setNotification({ message: 'Login successful!', type: 'success' });
         localStorage.setItem('token', responseData.token);
         setToken(responseData.token);
@@ -38,7 +38,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error('There was an error submitting the form:', error);
-      setNotification({ message:"Can't login,Failed!", type: 'error' });
+      setNotification({ message: "Can't login,Failed!", type: 'error' });
     }
     SetShowLoading(false)
   };
@@ -64,7 +64,7 @@ const Login = () => {
               <input type="password" id="password" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" {...register("password", { required: true })} />
               {errors.password && <span className="text-red-500 text-xs">Password is required</span>}
             </div>
-            <button disabled={showLoading} type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{showLoading?"Sign In...":'Sign In'}</button>
+            <button disabled={showLoading} type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{showLoading ? "Sign In..." : 'Sign In'}</button>
             {/* Notification message here */}
             {notification.message && (
               <div className={`mt-3 text-sm font-medium px-4 py-2 rounded-md text-center ${notification.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>

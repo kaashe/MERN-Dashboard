@@ -48,7 +48,7 @@ const deleteUser = async (req, resp, next) => {
   }
 };
 
-const getAllContacts = async (req, resp) => {
+const getAllContacts = async (req, resp,next) => {
   try {
     const contacts = await Contact.find();
     if (!contacts || contacts?.length === 0) {
